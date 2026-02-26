@@ -1,0 +1,5 @@
+services:
+  mongodbloader:
+    build: mongodbloader
+    ports:
+    - 8001:8001
