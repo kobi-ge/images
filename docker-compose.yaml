@@ -24,23 +24,49 @@ services:
     volumes:
       - kafka_kraft:/var/lib/kafka/data
 
+  mongo:
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongovolume:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: kodi
+      MONGO_INITDB_ROOT_PASSWORD: word
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping').ok" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
   ingestion:
     build: ingestion_service
     ports:
     - 8000:8000
     depends_on:
       - kafka
+    environment:
+      KAFKA_SERVICE: kafka
+      KAFKA_PORT: 9092
 
   mongodbloader:
     build: mongodbloader
     ports:
     - 8001:8001
+    environment:
+      HOST: mongo
+      PORT: 27017
+      USER: kodi
+      PASSWORD: word
 
 
 
 
 volumes:
   kafka_kraft:
+  mongovolume:
 
 
 
