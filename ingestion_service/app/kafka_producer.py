@@ -2,8 +2,6 @@ from confluent_kafka import Producer, KafkaError
 
 import json
 
-
-
 class KafkaProducer:
     def __init__(self, host, port, topic_name, logger):
         self.topic_name = topic_name
