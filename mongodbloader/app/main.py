@@ -18,4 +18,4 @@ app = FastAPI()
 @app.post("/save_image")
 async def save_image(request: Request):
     image = await request.body()
-    orchestrator.run()
+    orchestrator.run(image)
