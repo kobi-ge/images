@@ -1,1 +1,5 @@
 fastapi
+pillow
+confluent_kafka
+pytesseract
+uvicorn
