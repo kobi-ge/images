@@ -13,7 +13,7 @@ router = APIRouter()
 config = IngestionConfig()
 OCREngine = OCREngine(logger=logging.getLogger(OCREngine.__module__))
 MetadataExtractor = MetadataExtractor(logger=logging.getLogger(MetadataExtractor.__module__))
-mongoloader = MongoLoaderClient(url="", logger=logging.getLogger(MongoLoaderClient.__module__))
+mongoloader = MongoLoaderClient(url="http://mongodbloader:8001/save_image/", logger=logging.getLogger(MongoLoaderClient.__module__))
 producer = KafkaProducer(host=config.host, port=config.port, topic_name="RAW", logger=logging.getLogger(KafkaProducer.__module__))
 orchestrator = IngestionOrchestrator(config=config, OCREngine=OCREngine, MetadataExtractor=MetadataExtractor, mongoloader=mongoloader, producer=producer, logger= logging.getLogger(IngestionOrchestrator.__module__))
 
