@@ -3,3 +3,4 @@ pillow
 confluent_kafka
 pytesseract
 uvicorn
+requests

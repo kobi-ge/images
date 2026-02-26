@@ -2,10 +2,11 @@ import os
 
 
 class IngestionOrchestrator:
-    def __init__(self, config, OCREngine, MetadataExtractor, producer, logger):
+    def __init__(self, config, OCREngine, MetadataExtractor, mongoloader, producer, logger):
         self.config = config
         self.OCREngine = OCREngine
         self.MetadataExtractor = MetadataExtractor
+        self.mongoloader = mongoloader
         self.producer = producer
         self.logger = logger
         
@@ -20,6 +21,8 @@ class IngestionOrchestrator:
             "metadata": self.metadata
         }
         self.logger.info(f"image info was created: {self.image_info}")
+        self.mongoloader.send_to_mongo_loader({self.image_id: self.image_bytes})
+        self.logger.info(f"image bytes was created")
         self.producer.produce(self.image_info)
 
     def run(self):

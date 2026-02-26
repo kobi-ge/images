@@ -6,7 +6,7 @@ import os
 
 class MetadataExtractor:
     def __init__(self, logger):
-        self.logger = self.logger = logger
+        self.logger = logger
 
     def generate_image_id(self):
         self.image_id = str(uuid.uuid4())

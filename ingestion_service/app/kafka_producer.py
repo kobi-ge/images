@@ -1,18 +1,16 @@
 from confluent_kafka import Producer, KafkaError
 
 import json
-import logging
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 
 class KafkaProducer:
-    def __init__(self, host, port, topic_name):
+    def __init__(self, host, port, topic_name, logger):
         self.topic_name = topic_name
         self.host = host
         self.port = port
         self.producer = Producer({"bootstrap.servers": f"{self.host}:{self.port}"})
-        self.logger = logging.getLogger(__name__)
+        self.logger = logger
 
     def delivery_report(self, err, msg):
         if err:
@@ -32,4 +30,4 @@ class KafkaProducer:
             self.producer.flush()
             self.logger.info(f"message: {value} was sent to kafka")
         except KafkaError as e:
-            logging.error(f"error: {e}")
+            self.logger.error(f"error: {e}")
