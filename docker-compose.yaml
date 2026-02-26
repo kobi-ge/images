@@ -61,6 +61,14 @@ services:
       USER: kodi
       PASSWORD: word
 
+  cleaning_consumer:
+    build: cleaning_consumer
+    environment:
+      KAFKA_SERVICE: kafka
+      KAFKA_PORT: 9092
+      PYTHONUNBUFFERED: 1
+    depends_on:
+      - ingestion
 
 
 

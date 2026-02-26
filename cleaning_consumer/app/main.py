@@ -2,7 +2,7 @@ import logging
 
 from config import CleaningConfig
 from kafka_consumer import KafkaConsumer
-from text_cleaner import clearing_the_data, remove_stop_words
+from text_cleaner import TextCleaner
 from kafka_producer import KafkaProducer
 from orchestrator import CleaningOrchestrator
 
@@ -22,10 +22,13 @@ producer = KafkaProducer(
 orchestrator = CleaningOrchestrator(
     config=config,
     consumer=consumer,
-    punct_callback=clearing_the_data(),
-    words_callback=remove_stop_words(),
+    text_cleaner=TextCleaner(),
     producer=producer,
     logger=logging.getLogger(CleaningOrchestrator.__module__)
 )
 
-orchestrator.run()
+def main():
+    logging.info("starting")
+    orchestrator.run()
+
+main()
