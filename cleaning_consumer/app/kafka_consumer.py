@@ -20,16 +20,17 @@ class KafkaConsumer:
         try:
             msg = self.consumer.poll(1.0)
             if msg is None:
-                pass
+                return None
             if msg.error():
                 self.logger.error("❌ Error:", msg.error())
-                pass
+                return None
 
             value = msg.value().decode("utf-8")
             value = json.loads(value)
             self.logger.error(f"recieved image: {value}")
+            return value
         except KeyboardInterrupt:
             self.logger.info("\n🔴 Stopping consumer")
 
-        finally:
-            self.consumer.close()
+    def close_consumer(self):
+        return self.consumer.close()

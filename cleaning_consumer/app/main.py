@@ -12,12 +12,12 @@ config = CleaningConfig(logger=logging.getLogger(CleaningConfig.__module__))
 consumer = KafkaConsumer(
                 host=config.host, 
                 port=config.port, 
-                topic_name="clean", 
+                topic_name="raw", 
                 logger=logging.getLogger(KafkaConsumer.__module__))
 producer = KafkaProducer(
     host=config.host,
     port=config.port,
-    topic_name="Analytic",
+    topic_name="clean",
     logger=logging.getLogger(KafkaProducer.__module__))
 orchestrator = CleaningOrchestrator(
     config=config,

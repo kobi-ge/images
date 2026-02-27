@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-ENV PYHTONUNBUFFERED=1
+ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update \
   && apt-get -y install tesseract-ocr
